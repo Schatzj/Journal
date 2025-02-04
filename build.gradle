@@ -1,0 +1,38 @@
+plugins {
+    id 'java-library'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' //fat jar support https://imperceptiblethoughts.com/shadow/getting-started/#default-java-groovy-tasks
+  	id 'application'
+}
+
+mainClassName = 'journal.Application'
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+            srcDirs 'src/main/resources'
+        }
+    }
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'journal.Application'
+  }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	implementation 'org.apache.logging.log4j:log4j-core:2.24.3'
+	implementation 'org.apache.logging.log4j:log4j-api:2.24.3'
+	
+	implementation 'com.vladsch.flexmark:flexmark-all:0.64.8' //markdown parser
+	implementation 'commons-io:commons-io:2.15.1' //file utilities
+	
+	
+}
+
