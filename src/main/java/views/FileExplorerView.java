@@ -3,6 +3,8 @@ package views;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -13,7 +15,11 @@ import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import components.FileExplorerNode;
+import journal.AppConstants;
 import utilities.GeneralUtilities;
 
 public class FileExplorerView {
@@ -21,6 +27,7 @@ public class FileExplorerView {
 	private TreePath treePath;
 	private JFrame mainFrame;
 	private JTree tree;
+	private static final Logger logger = LogManager.getLogger(FileExplorerView.class);
 	
 	public FileExplorerView(){//File topLevelDirectory) {
 		mainFrame = new JFrame();
@@ -68,7 +75,30 @@ public class FileExplorerView {
 
 	private FileExplorerNode addNodes(FileExplorerNode parentDirectory, File dir, String targetPath) {
 		File[] files = dir.listFiles();
-		for(File file : files) {
+		List<File> fileList = Arrays.asList(files);
+		fileList.sort(new Comparator<File>() {
+
+			@Override
+			public int compare(File o1, File o2) {
+				try {
+					String name1 = o1.getName();
+					String name2 = o2.getName();
+					if(name1.contains(AppConstants.ENTRY) && name2.contains(AppConstants.ENTRY)) {
+						Integer date1 = Integer.parseInt(name1.substring((name1.indexOf("-") + 1), (name1.indexOf("."))));
+						Integer date2 = Integer.parseInt(name2.substring((name2.indexOf("-") + 1), (name2.indexOf("."))));
+						return date1.compareTo(date2);
+					}else {
+						return o1.compareTo(o2);			
+					}
+				}catch(Exception e) {
+					logger.error("sorting files", e);
+					e.printStackTrace();
+				}
+				return o1.compareTo(o2);
+			}
+			
+		});
+		for(File file : fileList) {
 			if(file.isDirectory()) {
 				String fullPath = file.getPath();
 				String fileName = extractFileName(fullPath);

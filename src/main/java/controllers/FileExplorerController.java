@@ -12,13 +12,6 @@ public class FileExplorerController {
 	
 	private FileExplorerView view;
 	private MainController mainController;
-
-	public FileExplorerController(FileExplorerView view, MainController mainController) {
-		this.view = view;
-		this.mainController = mainController;
-		
-		view.getTree().addMouseListener(new FileExplorerMouseListener(this));
-	}
 	
 	public FileExplorerController(MainController mainController) {
 		view = new FileExplorerView();
@@ -28,6 +21,8 @@ public class FileExplorerController {
 	}
 	
 	public void start() {
+		view = new FileExplorerView(); //get a new view. We want to refresh the view to pick up any changes since it was last opened.
+		view.getTree().addMouseListener(new FileExplorerMouseListener(this));
 		JFrame mainFrame = view.getMainFrame();
 		
 		double width = (300);

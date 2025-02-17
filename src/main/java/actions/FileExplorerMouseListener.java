@@ -10,7 +10,10 @@ import controllers.FileExplorerController;
 
 public class FileExplorerMouseListener implements MouseListener{
 	
-	FileExplorerController controller;
+	private FileExplorerController controller;
+	private int clickCount = 0;
+	private long lastClickTime = 0;
+	private String clickedItemName;
 	
 	public FileExplorerMouseListener(FileExplorerController controller) {
 		this.controller = controller;
@@ -18,9 +21,22 @@ public class FileExplorerMouseListener implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		clickCount++;
+		long currentTime = System.currentTimeMillis();
+		long timeBetweenClicks = currentTime - lastClickTime;
+		if(timeBetweenClicks > 1000) {
+			clickCount = 1;
+		}
+		lastClickTime = currentTime;
+		
 		JTree tree = (JTree)e.getSource();
 		FileExplorerNode node = (FileExplorerNode)tree.getLastSelectedPathComponent();
-		controller.handleClickEvent(node);
+		
+		if(clickCount > 1 && clickedItemName.equals(node.getFilePath())) {
+			clickCount = 0;
+			controller.handleClickEvent(node);
+		}
+		clickedItemName = node.getFilePath();
 	}
 
 	@Override
