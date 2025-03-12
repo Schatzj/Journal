@@ -3,7 +3,6 @@ package utilities;
 import java.io.File;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.prefs.Preferences;
 
 import com.ibm.icu.text.SimpleDateFormat;
@@ -116,9 +115,10 @@ public class GeneralUtilities {
 	}
 	
 	public static String getSecondPartOfSavePath(boolean includStartingFileSeperator) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date(System.currentTimeMillis()));
-		return getSecondPartOfSavePath(cal, includStartingFileSeperator);
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(new Date(System.currentTimeMillis()));
+//		return getSecondPartOfSavePath(cal, includStartingFileSeperator);
+		return getSecondPartOfSavePath(AppConstants.cal, includStartingFileSeperator);
 	}
 	
 	public static String getSecondPartOfSavePath(Calendar cal, boolean includStartingFileSeperator) {
