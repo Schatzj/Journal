@@ -152,6 +152,8 @@ public class MainController {
 			view.getEntryLabel().setText("Entry: " + currentEntry);
 			
 			view.getProcessMarkupAction().performAction();
+			view.getTextArea().requestFocus();
+			view.getTextArea().setCaretPosition(view.getTextArea().getDocument().getLength());
 		}catch(Exception e) {
 			logger.error("Error loading data", e);
 		}
