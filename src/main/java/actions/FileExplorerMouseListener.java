@@ -13,7 +13,7 @@ public class FileExplorerMouseListener implements MouseListener{
 	private FileExplorerController controller;
 	private int clickCount = 0;
 	private long lastClickTime = 0;
-	private String clickedItemName;
+	private String clickedItemName = "defualt";
 	
 	public FileExplorerMouseListener(FileExplorerController controller) {
 		this.controller = controller;
@@ -36,7 +36,9 @@ public class FileExplorerMouseListener implements MouseListener{
 			clickCount = 0;
 			controller.handleClickEvent(node);
 		}
-		clickedItemName = node.getFilePath();
+		if(node != null) {
+			clickedItemName = node.getFilePath();
+		}		
 	}
 
 	@Override
