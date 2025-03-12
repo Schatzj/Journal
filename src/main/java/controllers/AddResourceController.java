@@ -154,6 +154,7 @@ public class AddResourceController {
 				}catch(Exception error) {
 					logger.error("Error moving resource ", error);
 				}
+				mainFrame.dispose();
 			}
 		});
 		
@@ -189,6 +190,7 @@ public class AddResourceController {
 				}catch(Exception error) {
 					logger.error("Error copying resource ", error);
 				}
+				mainFrame.dispose();
 			}
 		});
 	}
