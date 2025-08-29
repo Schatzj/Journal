@@ -35,11 +35,11 @@ public class GeneralUtilities {
 		return sdf.format(cal.getTime());
 	}
 	
-	public static String majorHeader(Calendar cal) {
-		String suffix = generateSuffixString(cal);
-		String dayName = getNameOfDay(cal);
+	public static String majorHeader() {
+		String suffix = generateSuffixString(AppConstants.cal);
+		String dayName = getNameOfDay(AppConstants.cal);
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd'" + suffix + ",' YYYY '(" + dayName + ")' hh:mm a zzz");
-		return "# " + sdf.format(cal.getTime());
+		return "# " + sdf.format(AppConstants.cal.getTime());
 	}
 	
 	public static String getNameOfDay(Calendar cal) {

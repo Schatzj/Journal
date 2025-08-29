@@ -100,7 +100,7 @@ public class MainView {
 		textArea.registerKeyboardAction(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	String header = GeneralUtilities.majorHeader(Calendar.getInstance());
+            	String header = GeneralUtilities.majorHeader();
             	textArea.insert(header, textArea.getCaretPosition());
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_T,KeyEvent.CTRL_DOWN_MASK),JComponent.WHEN_IN_FOCUSED_WINDOW );
